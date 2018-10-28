@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'CalorieEstimatorController@index');
+
+Route::get('/calories/calculate','CalorieEstimatorController@calculateCaloriesBurned');
