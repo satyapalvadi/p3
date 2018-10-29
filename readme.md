@@ -15,7 +15,8 @@
 + Checkbox to indicate if BMR to be calculated using Harris-Benedict equation. 
 
 ## Packages
-+ barryvdh/laravel-debugbar
++ barryvdh/laravel-debugbar (DEV only)
++ barryvdh/laravel-ide-helper (DEV only)
 
 ## Code style divergences
 + Some PHP and HTML code lines extend beyond 80 character limit (violation of a PSR-2 style guide)
