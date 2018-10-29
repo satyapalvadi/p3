@@ -31,9 +31,9 @@ class CalorieEstimatorController extends Controller
     public function calculateCaloriesBurned(Request $request)
     {
         $request->validate([
-            'age' => 'required',
-            'heightValue' => 'required',
-            'weightValue' => 'required'
+            'age' => 'required|numeric|min:0',
+            'heightValue' => 'required|numeric|min:0',
+            'weightValue' => 'required|numeric|min:0'
         ]);
 
         $age = $request->query('age');
