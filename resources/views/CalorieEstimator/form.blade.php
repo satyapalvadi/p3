@@ -25,7 +25,8 @@
                     <span><strong>Age</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input id='age' type='text' name='age'> <span> Years</span>
+                    <input id='age' type='text' name='age' @if(isset($age)) value='{{ $age }}' @endif>
+                    <span> Years</span>
                 </div>
             </div>
 
@@ -35,8 +36,11 @@
                     <span><strong>Gender</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input type='radio' id='male' name='gender' value='male' checked> <span>Male</span>
-                    <input type='radio' id='female' name='gender' value='female'> <span>Female</span>
+                    <input type='radio' id='male' name='gender' value='male'
+                    @if(isset($gender)) @if($gender === 'male') {{ 'checked' }} @endif @else {{'checked'}} @endif>
+                    <span>Male</span>
+                    <input type='radio' id='female' name='gender' value='female'
+                    @if(isset($gender) && $gender==='female') {{ 'checked' }} @endif> <span>Female</span>
                 </div>
             </div>
 
@@ -46,9 +50,15 @@
                     <span><strong>Weight</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input type='text' id='weightValue' name='weightValue'>
-                    <input type='radio' id='lbs' name='weightRadio' value='lbs' checked> <span>lbs</span>
-                    <input type='radio' id='kgs' name='weightRadio' value='kgs'> <span>kgs</span>
+                    <input type='text'
+                           id='weightValue'
+                           name='weightValue'
+                           @if(isset($weightValue)) value='{{ $weightValue }}' @endif>
+                    <input type='radio' id='lbs' name='weightRadio' value='lbs'
+                    @if(isset($weightRadio)) @if($weightRadio === 'lbs') {{ 'checked' }} @endif @else {{'checked'}} @endif>
+                    <span>lbs</span>
+                    <input type='radio' id='kgs' name='weightRadio' value='kgs'
+                    @if(isset($weightRadio) && $weightRadio === 'kgs') {{ 'checked' }} @endif> <span>kgs</span>
                 </div>
             </div>
 
@@ -58,9 +68,15 @@
                     <span><strong>Height</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input type='text' id='heightValue' name='heightValue'>
-                    <input type='radio' id='inches' name='heightRadio' value='inches' checked> <span>inches</span>
-                    <input type='radio' id='cms' name='heightRadio' value='cms'> <span>cms</span>
+                    <input type='text'
+                           id='heightValue'
+                           name='heightValue'
+                           @if(isset($heightValue)) value='{{ $heightValue }}' @endif>
+                    <input type='radio' id='inches' name='heightRadio' value='inches'
+                    @if(isset($heightRadio)) @if($heightRadio === 'inches') {{ 'checked' }} @endif @else {{'checked'}} @endif>
+                    <span>inches</span>
+                    <input type='radio' id='cms' name='heightRadio' value='cms'
+                    @if(isset($heightRadio) && $heightRadio === 'cms') {{ 'checked' }} @endif> <span>cms</span>
                 </div>
             </div>
 
@@ -71,11 +87,11 @@
                 </div>
                 <div class='col-sm-7'>
                     <select name='activity'>
-                        <option value='low' selected>Low - You get little to no exercise</option>
-                        <option value='light'>Light - You exercise lightly (1-3 days per week)</option>
-                        <option value='moderate'>Moderate - You exercise moderately (3-5 days per week)</option>
-                        <option value='high'>High - You exercise heavily (6-7 days per week)</option>
-                        <option value='very_high'>Very High - You exercise very heavily (i.e. 2x per day, extra heavy workouts)</option>
+                        <option value='low' @if(isset($activity) && $activity === 'low') {{  'selected' }} @endif>Low - You get little to no exercise</option>
+                        <option value='light' @if(isset($activity) && $activity === 'light') {{  'selected' }} @endif>Light - You exercise lightly (1-3 days per week)</option>
+                        <option value='moderate' @if(isset($activity) && $activity === 'moderate') {{  'selected' }} @endif>Moderate - You exercise moderately (3-5 days per week)</option>
+                        <option value='high' @if(isset($activity) && $activity === 'high') {{  'selected' }} @endif>High - You exercise heavily (6-7 days per week)</option>
+                        <option value='very_high' @if(isset($activity) && $activity === 'very_high') {{  'selected' }} @endif>Very High - You exercise very heavily (i.e. 2x per day, extra heavy workouts)</option>
                     </select>
                 </div>
             </div>
@@ -83,7 +99,8 @@
             <!-- Checkbox to calculate using an alternate equation -->
             <div class='form-group row align-middle'>
                 <div class='col-sm-5 no-right-gutter checkbox'>
-                    <input type='checkbox' id='harrisBenedict' name='harrisBenedict' value='yes'>
+                    <input type='checkbox' id='harrisBenedict' name='harrisBenedict' value='yes'
+                    @if (isset($harrisBenedict) && $harrisBenedict == 'yes') {{ 'checked' }} @endif>
                 </div>
                 <div class='col-sm-7 text-left'>
                     <span>Show BMR value for Harris-Benedict equation</span>
@@ -93,7 +110,8 @@
             <!-- Checkbox to compare calories based on different activity levels -->
             <div class='form-group row align-middle'>
                 <div class='col-sm-5 no-right-gutter checkbox'>
-                    <input type='checkbox' id='compareCalories' name='compareCalories' value='yes'>
+                    <input type='checkbox' id='compareCalories' name='compareCalories' value='yes'
+                    @if (isset($compareCalories) && $compareCalories == 'yes') {{ 'checked' }} @endif>
                 </div>
                 <div class='col-sm-7 text-left'>
                     <span>Show how different activity levels impact the calories burned every day</span>
@@ -104,8 +122,6 @@
             </div>
         </form>
     </div>
-
-
 
     @if($bmrMifflin)
         <div class='container'>
@@ -141,39 +157,39 @@
                 </div>
             @endif
 
-            <!-- Displays a table if the user selected the checkbox to compare and if the value array is set in results -->
+        <!-- Displays a table if the user selected the checkbox to compare and if the value array is set in results -->
             @if($compareCalories == 'yes')
-            <div class='row justify-content-left table-row'>
-                <table class="table table-bordered">
-                    <caption class='table-caption'>Table: Calories burned based on BMR (Mifflin St Jeor equation) and different activity levels.</caption>
-                    <thead>
-                    <tr>
-                        <th scope='col'
-                            class='text-center align-middle bg-light'
-                            style='width:20%;'>Activity level
-                        </th>
-                        @foreach($caloriesForActivitiesMifflin as $key => $caloriesForActivityMifflin)
-                            <th scope='col' style='width:16%;'
-                                class='text-center align-middle bg-light @if($key == $activity) matched-activity-table-cell text-primary @endif'>
-                                {{ ucwords(str_replace('_', ' ', $key)) }}
-                                @if ($key == $activity)
-                                    <div class='text-primary'>(selected level)</div>
-                                @endif
+                <div class='row justify-content-left table-row'>
+                    <table class="table table-bordered">
+                        <caption class='table-caption'>Table: Calories burned based on BMR (Mifflin St Jeor equation) and different activity levels.</caption>
+                        <thead>
+                        <tr>
+                            <th scope='col'
+                                class='text-center align-middle bg-light'
+                                style='width:20%;'>Activity level
                             </th>
-                        @endforeach
-                    </tr>
-                    </thead>
-                    <tr>
-                        <th scope='col' class='text-center align-middle bg-light'>Calories burned/day</th>
-                        @foreach ($caloriesForActivitiesMifflin as $key => $caloriesForActivityMifflin)
-                            <td scope='col'
-                                class='text-center align-middle @if($key == $activity) matched-activity-table-cell text-primary @endif'>
-                                {{ $caloriesForActivitiesMifflin[$key] }}
-                            </td>
-                        @endforeach
-                    </tr>
-                </table>
-            </div>
+                            @foreach($caloriesForActivitiesMifflin as $key => $caloriesForActivityMifflin)
+                                <th scope='col' style='width:16%;'
+                                    class='text-center align-middle bg-light @if($key == $activity) matched-activity-table-cell text-primary @endif'>
+                                    {{ ucwords(str_replace('_', ' ', $key)) }}
+                                    @if ($key == $activity)
+                                        <div class='text-primary'>(selected level)</div>
+                                    @endif
+                                </th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tr>
+                            <th scope='col' class='text-center align-middle bg-light'>Calories burned/day</th>
+                            @foreach ($caloriesForActivitiesMifflin as $key => $caloriesForActivityMifflin)
+                                <td scope='col'
+                                    class='text-center align-middle @if($key == $activity) matched-activity-table-cell text-primary @endif'>
+                                    {{ $caloriesForActivitiesMifflin[$key] }}
+                                </td>
+                            @endforeach
+                        </tr>
+                    </table>
+                </div>
             @endif
         </div>
     @endif

@@ -12,8 +12,11 @@ class CalorieEstimatorController extends Controller
     {
         return view('CalorieEstimator.form')->with([
         'age' => $request->session()->get('age',''),
+        'gender' => $request->session()->get('gender'),
         'heightValue' => $request->session()->get('heightValue',''),
+        'heightRadio' => $request->session()->get('heightRadio'),
         'weightValue' => $request->session()->get('weightValue',''),
+        'weightRadio' => $request->session()->get('weightRadio'),
         'activity' => $request->session()->get('activity'),
         'compareCalories' => $request->session()->get('compareCalories','no'),
         'harrisBenedict' => $request->session()->get('harrisBenedict','no'),
