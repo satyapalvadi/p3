@@ -21,4 +21,5 @@
 + Some PHP and HTML code lines extend beyond 80 character limit (violation of a PSR-2 style guide)
 
 ## Notes for instructor
-+ All form fields are in a separate blade module of their own. I decided to do this way as there is a lot of display logic for each field and having all fields in one blade file made the file unreadable.
++ Used same idea from my project 2. So, a lot of code has been replicated into project 3 and updated for Laravel framework
++ All form fields are in separate blade module files of their own. Had to do this way as there is a lot of display logic for each field and having all fields in one blade file made the file unreadable and lengthy.
