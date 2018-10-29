@@ -25,7 +25,11 @@
                     <span><strong>Age</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input id='age' type='text' name='age' @if(isset($age)) value='{{ $age }}' @endif>
+                    <input id='age' type='text' name='age'
+                    @if (old('age')) value='{{ old('age') }}'
+                    @else
+                        @if(isset($age)) value='{{ $age }}' @endif
+                    @endif >
                     <span> Years</span>
                 </div>
             </div>
@@ -37,10 +41,17 @@
                 </div>
                 <div class='col-sm-7'>
                     <input type='radio' id='male' name='gender' value='male'
-                    @if(isset($gender)) @if($gender === 'male') {{ 'checked' }} @endif @else {{'checked'}} @endif>
+                    @if(old('gender'))  @if(old('gender') === 'male') {{ 'checked'  }} @endif
+                    @else
+                        @if(isset($gender)) @if($gender === 'male') {{ 'checked' }} @endif @else {{ 'checked' }} @endif
+                    @endif>
                     <span>Male</span>
                     <input type='radio' id='female' name='gender' value='female'
-                    @if(isset($gender) && $gender==='female') {{ 'checked' }} @endif> <span>Female</span>
+                    @if(old('gender'))  @if(old('gender') === 'female') {{ 'checked'  }} @endif
+                    @else
+                        @if(isset($gender) && $gender === 'female') {{ 'checked' }} @endif>
+                    @endif
+                    <span>Female</span>
                 </div>
             </div>
 
@@ -50,15 +61,23 @@
                     <span><strong>Weight</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input type='text'
-                           id='weightValue'
-                           name='weightValue'
-                           @if(isset($weightValue)) value='{{ $weightValue }}' @endif>
+                    <input type='text' id='weightValue' name='weightValue'
+                    @if (old('weightValue')) value='{{old('weightValue')}}'
+                    @else
+                        @if(isset($weightValue)) value='{{ $weightValue }}' @endif
+                    @endif>
                     <input type='radio' id='lbs' name='weightRadio' value='lbs'
-                    @if(isset($weightRadio)) @if($weightRadio === 'lbs') {{ 'checked' }} @endif @else {{'checked'}} @endif>
+                    @if(old('weightRadio'))  @if(old('weightRadio') === 'lbs') {{ 'checked'  }} @endif
+                    @else
+                        @if(isset($weightRadio)) @if($weightRadio === 'lbs') {{ 'checked' }} @endif @else {{ 'checked' }} @endif
+                    @endif>
                     <span>lbs</span>
                     <input type='radio' id='kgs' name='weightRadio' value='kgs'
-                    @if(isset($weightRadio) && $weightRadio === 'kgs') {{ 'checked' }} @endif> <span>kgs</span>
+                    @if(old('weightRadio'))  @if(old('weightRadio') === 'kgs') {{ 'checked'  }} @endif
+                    @else
+                        @if(isset($weightRadio) && $weightRadio === 'kgs') {{ 'checked' }} @endif
+                    @endif>
+                    <span>kgs</span>
                 </div>
             </div>
 
@@ -68,15 +87,23 @@
                     <span><strong>Height</strong></span>
                 </div>
                 <div class='col-sm-7'>
-                    <input type='text'
-                           id='heightValue'
-                           name='heightValue'
-                           @if(isset($heightValue)) value='{{ $heightValue }}' @endif>
+                    <input type='text' id='heightValue' name='heightValue'
+                    @if (old('heightValue')) value='{{old('heightValue')}}'
+                    @else
+                        @if(isset($heightValue)) value='{{ $heightValue }}' @endif
+                    @endif>
                     <input type='radio' id='inches' name='heightRadio' value='inches'
-                    @if(isset($heightRadio)) @if($heightRadio === 'inches') {{ 'checked' }} @endif @else {{'checked'}} @endif>
+                    @if(old('heightRadio'))  @if(old('heightRadio') === 'inches') {{ 'checked'  }} @endif
+                    @else
+                        @if(isset($heightRadio)) @if($heightRadio === 'inches') {{ 'checked' }} @endif @else {{ 'checked' }} @endif
+                    @endif >
                     <span>inches</span>
                     <input type='radio' id='cms' name='heightRadio' value='cms'
-                    @if(isset($heightRadio) && $heightRadio === 'cms') {{ 'checked' }} @endif> <span>cms</span>
+                    @if(old('heightRadio'))  @if(old('heightRadio') === 'cms') {{ 'checked'  }} @endif
+                    @else
+                        @if(isset($heightRadio) && $heightRadio === 'cms') {{ 'checked' }} @endif
+                    @endif >
+                    <span>cms</span>
                 </div>
             </div>
 
@@ -193,13 +220,4 @@
             @endif
         </div>
     @endif
-
-
-
-
-
-
-
-
-
 @endsection
