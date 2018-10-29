@@ -132,7 +132,7 @@
             </div>
 
             <!-- Displays BMR calculated as per Harris-Benedict equation if the user selected the checkbox and if the value is set in results -->
-            @if($calculateBmrHarris == 'yes')
+            @if($harrisBenedict == 'yes')
                 <div class='row output-row'>
                     <div class='col text-left'>
                         <span>BMR (Harris-Benedict equation): </span>
@@ -141,7 +141,8 @@
                 </div>
             @endif
 
-        <!-- Displays a table if the user selected the checkbox to compare and if the value array is set in results -->
+            <!-- Displays a table if the user selected the checkbox to compare and if the value array is set in results -->
+            @if($compareCalories == 'yes')
             <div class='row justify-content-left table-row'>
                 <table class="table table-bordered">
                     <caption class='table-caption'>Table: Calories burned based on BMR (Mifflin St Jeor equation) and different activity levels.</caption>
@@ -173,8 +174,7 @@
                     </tr>
                 </table>
             </div>
-
-
+            @endif
         </div>
     @endif
 

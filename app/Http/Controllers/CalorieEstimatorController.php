@@ -15,11 +15,11 @@ class CalorieEstimatorController extends Controller
         'heightValue' => $request->session()->get('heightValue',''),
         'weightValue' => $request->session()->get('weightValue',''),
         'activity' => $request->session()->get('activity'),
-        'compareCaloriesBurned' => $request->session()->get('$compareCaloriesBurned'),
-        'calculateBmrHarris' => $request->session()->get('$calculateBmrHarris'),
+        'compareCalories' => $request->session()->get('compareCalories','no'),
+        'harrisBenedict' => $request->session()->get('harrisBenedict','no'),
+
         'bmrMifflin' => $request->session()->get('bmrMifflin',''),
         'bmrHarris' => $request->session()->get('bmrHarris',''),
-
         'caloriesBurnedMifflin' => $request->session()->get('caloriesBurnedMifflin',''),
         'caloriesForActivitiesMifflin' => $request->session()->get('caloriesForActivitiesMifflin','')
         ]);
@@ -34,16 +34,16 @@ class CalorieEstimatorController extends Controller
         ]);
 
         $age = $request->query('age');
-        $gender = $request->query('gender');
-        $heightValue = $request->query('heightValue');
-        $weightValue = $request->query('weightValue');
-        $heightRadio = $request->query('heightRadio');
-        $weightRadio = $request->query('weightRadio');
-        $height = $heightRadio == 'inches' ? ($heightValue/0.3937) : $heightValue;
-        $weight = $weightRadio == 'lbs' ? ($weightValue/2.2046) : $weightValue;
-        $activity = $request->query('activity');
-        $calculateBmrHarris = $request->input('harrisBenedict', 'no');
-        $compareCaloriesBurned = $request->input('compareCalories', 'no');
+        $gender = $request->get('gender');
+        $heightValue = $request->get('heightValue');
+        $weightValue = $request->get('weightValue');
+        $heightRadio = $request->get('heightRadio');
+        $weightRadio = $request->get('weightRadio');
+        $height = $heightRadio === 'inches' ? ($heightValue/0.3937) : $heightValue;
+        $weight = $weightRadio === 'lbs' ? ($weightValue/2.2046) : $weightValue;
+        $activity = $request->get('activity');
+        $harrisBenedict = $request->get('harrisBenedict');
+        $compareCalories = $request->get('compareCalories');
 
         # instantiate the Person class
         $person = new Person($age, $height, $weight, $gender, $activity);
@@ -55,16 +55,12 @@ class CalorieEstimatorController extends Controller
         $caloriesBurnedMifflin = $person->caloriesBurnedMifflin();
 
         # Calculate BMR based on Harris-Benedict equation and round the value
-        if ($calculateBmrHarris == 'yes') {
-            $bmrHarris = $person->calculateBMRHarris();
-        }
+        ($harrisBenedict === 'yes') ? $bmrHarris = $person->calculateBMRHarris() : null;
 
         # Calculate calories burned based on different activity levels
-        if ($compareCaloriesBurned == 'yes') {
-            $caloriesForActivitiesMifflin = $person->compareCaloriesBurned();
-        }
+        ($compareCalories === 'yes') ? $caloriesForActivitiesMifflin = $person->compareCaloriesBurned() : null;
 
-        return redirect('/')->with([
+        $resultArray = [
             'age' => $age,
             'gender' => $gender,
             'heightValue' => $heightValue,
@@ -72,13 +68,16 @@ class CalorieEstimatorController extends Controller
             'heightRadio' => $heightRadio,
             'weightRadio' => $weightRadio,
             'activity' => $activity,
-            'calculateBmrHarris' => $calculateBmrHarris,
-            'compareCaloriesBurned' => $compareCaloriesBurned,
+            'harrisBenedict' => $harrisBenedict,
+            'compareCalories' => $compareCalories,
             'bmrMifflin' => $bmrMifflin,
-            'caloriesBurnedMifflin' => $caloriesBurnedMifflin,
-            'bmrHarris' => $bmrHarris,
-            'caloriesForActivitiesMifflin' => $caloriesForActivitiesMifflin
-        ]);
+            'caloriesBurnedMifflin' => $caloriesBurnedMifflin
+        ];
+
+        ($harrisBenedict === 'yes') ? $resultArray['bmrHarris'] = $bmrHarris : null;
+        ($compareCalories === 'yes') ? $resultArray['caloriesForActivitiesMifflin'] = $caloriesForActivitiesMifflin : null;
+
+        return redirect('/')->with($resultArray);
     }
 }
 
