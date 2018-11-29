@@ -18,10 +18,9 @@
 + Results page showed correct calculated value based on user's selections.
 
 ## 3. Code: Routes
-+ Not sure if the following routes are needed to present in the web.php file.
-
++ Not sure if the following routes are needed to be present in the web.php file.
 ```
-Route::get('/food/search', 'FoodController@search'); # <-- NEW 1 of 2
+Route::get('/food/search', 'FoodController@search');
 Route::get('/food/{title}', 'FoodController@search');
 ```
 
